@@ -1,8 +1,10 @@
 import string
 
 from lib.search_utils import SEARCH_LIMIT, load_movies, load_stop_words
+from nltk.stem import PorterStemmer
 
 STOP_WORDS = load_stop_words()
+stemmer = PorterStemmer()
 
 
 def search(query: str, limit: int = SEARCH_LIMIT) -> list[dict]:
@@ -39,7 +41,7 @@ def tokenize_text(text: str) -> list[str]:
 def has_matching_token(query_tokens: list[str], title_tokens: list[str]) -> bool:
     for query in query_tokens:
         for title in title_tokens:
-            if query in title:
+            if stemmer.stem(query) in title:
                 return True
     return False
 
