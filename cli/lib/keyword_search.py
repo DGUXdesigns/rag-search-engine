@@ -1,3 +1,5 @@
+import string
+
 from lib.search_utils import SEARCH_LIMIT, load_movies
 
 
@@ -16,4 +18,6 @@ def search(query: str, limit: int = SEARCH_LIMIT) -> list[dict]:
 
 def preprocess_text(text: str) -> str:
     text = text.lower()
+    # Remove punctuation
+    text = text.translate(str.maketrans("", "", string.punctuation))
     return text
